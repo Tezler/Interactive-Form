@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", function(e) {
+document.addEventListener("DOMContentLoaded", function (e) {
   let totalPrice = 0;
   // On page load, focuses the name input box.
-  $(document).ready(function() {
+  $(document).ready(function () {
     $("#name").focus();
     $("#payment").val("credit card");
     paymentMsg(null, 0, 1);
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
   // Job Role //
   // When the other drop down option is selected; dynamically create an input box
   // Removes the box if its any other value
-  $("#title").change(function() {
+  $("#title").change(function () {
     if (
       $(this)
         .val()
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
   // T-Shirt Info //
   // Displays the propper options under color depending on the option selected under design
-  $("#design").change(function() {
+  $("#design").change(function () {
     const design = $(this)
       .val()
       .toLowerCase();
@@ -66,9 +66,9 @@ document.addEventListener("DOMContentLoaded", function(e) {
       10
     );
 
-    if (event.target.checked) {
+    if (e.target.checked) {
       totalPrice += targetPrice;
-      $(".activities label").each(function() {
+      $(".activities label").each(function () {
         if (
           this.textContent.indexOf(targetDate) != -1 &&
           this.textContent != targetText
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
       });
     } else {
       totalPrice -= targetPrice;
-      $(".activities label").each(function() {
+      $(".activities label").each(function () {
         if (
           this.textContent.indexOf(targetDate) != -1 &&
           this.textContent != targetText
@@ -109,8 +109,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
   // Register for activities End //
 
   // Payment Info //
-  $("#payment").change(() => {
-    const payment = event.target.value.toLowerCase();
+  $("#payment").change(e => {
+    const payment = e.target.value.toLowerCase();
 
     if (payment == "paypal") {
       paymentMsg(0, 1);
@@ -137,14 +137,16 @@ document.addEventListener("DOMContentLoaded", function(e) {
   }
 
   // Form Validation //
-  $("button").submit(() => {
-    event.preventDefault();
-    // name input box //
-    if ($("#name").val() == "") {
-      console.log("name input field is emply, please enter your name");
-      $("#name").text("Please enter your name");
-    }
-  });
 
-  $("");
+  $("form").on("submit", e => {
+    let name = $("#name").val();
+    let email = $("#mail").val();
+    let validationMessage = "";
+    Validation.name(name);
+    Validation.email(email);
+
+    console.log('email valid?' + ' ' + Validation.email(email));
+
+    e.preventDefault();
+  });
 });
